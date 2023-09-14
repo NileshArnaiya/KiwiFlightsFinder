@@ -33,28 +33,31 @@ NUM_BAGS = args.bags
 # print(NUM_BAGS)
 
 def read_csv_into_graph():
-    with open(CSV_FILE, 'r') as csv_file:
-        csv_reader = csv.DictReader(csv_file)
-        # Read the CSV file and populate the graph below
-        for row in csv_reader:
-            origin = row['origin']
-            destination = row['destination']
-            # Create nodes for origin and destination if they don't exist
-            if origin not in graph:
-                graph[origin] = []
-            if destination not in graph:
-                graph[destination] = []
+    try:
+        with open(CSV_FILE, 'r') as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+            # Read the CSV file and populate the graph below
+            for row in csv_reader:
+                origin = row['origin']
+                destination = row['destination']
+                # Create nodes for origin and destination if they don't exist
+                if origin not in graph:
+                    graph[origin] = []
+                if destination not in graph:
+                    graph[destination] = []
 
-            # Create an edge between origin and destination
-            flight_info = {
-                'flight_no': row['flight_no'],
-                'departure': row['departure'],
-                'arrival': row['arrival'],
-                'base_price': float(row['base_price']),
-                'bag_price': int(row['bag_price']),
-                'bags_allowed': int(row['bags_allowed'])
-            }
-            graph[origin].append((destination, flight_info))
+                # Create an edge between origin and destination
+                flight_info = {
+                    'flight_no': row['flight_no'],
+                    'departure': row['departure'],
+                    'arrival': row['arrival'],
+                    'base_price': float(row['base_price']),
+                    'bag_price': int(row['bag_price']),
+                    'bags_allowed': int(row['bags_allowed'])
+                }
+                graph[origin].append((destination, flight_info))
+    except Exception as e:
+        print(f"Did you input a csv file? {str(e)}")
 
 # Print the graph
 def print_graph():
