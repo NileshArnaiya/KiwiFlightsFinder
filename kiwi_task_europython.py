@@ -2,6 +2,7 @@
 import csv
 from datetime import datetime, timedelta
 import argparse
+import json
 
 graph = {}
 MIN_LAYOVER_MINUTES = 60
@@ -206,6 +207,7 @@ sorted_flights = sorted(all_flights, key=sort_by_total_price)
 
 # Print the sorted list of flights (Final output)
 for flight in sorted_flights:
-    print(flight)
+    pretty_list = json.dumps(flight, indent=4)
+    print(pretty_list)
 
     
